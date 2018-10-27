@@ -37,4 +37,11 @@ export class UsersService {
   all(): Observable<Array<object>> {
     return of(this.users);
   }
+
+  findOne(id: string): Observable<object> {
+    const user = this.users.find((u: any) => {
+      return u.id === id;
+    });
+    return of(user);
+  }
 }

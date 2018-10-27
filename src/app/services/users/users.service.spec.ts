@@ -43,4 +43,25 @@ describe('UsersService', () => {
       expect(response).toEqual(userResponse);
     });
   });
+
+  describe('findOne', () => {
+    it('should return a single user', () => {
+      const userResponse = {
+        id: '2',
+        name: 'Bob',
+        role: 'Developer',
+        pokemon: 'Charizard'
+      }
+      let response;
+
+      spyOn(usersService, 'findOne').and.returnValue(of(userResponse));
+
+      usersService.findOne('2').subscribe(res => {
+        response = res;
+      });
+
+      expect(response).toEqual(userResponse);
+    });
+  });
+
 });
