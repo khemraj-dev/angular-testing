@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { GenericService } from '../../shared/generic.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,8 @@ export class UsersService {
       pokemon: 'Yoshi'
     }
   ];
-  constructor() { }
+  constructor(private gs: GenericService) { }
+  _url = 'http://jsonplaceholder.typicode.com/posts';
 
   all(): Observable<Array<object>> {
     return of(this.users);
@@ -44,4 +46,13 @@ export class UsersService {
     });
     return of(user);
   }
+
+  get_all_posts(callback: Function) {
+    this.gs.get_all_data(this._url).subscribe(res => callback(this._flatten(res)));
+  }
+
+  private _flatten(res) {
+    return res;
+  }
+
 }
