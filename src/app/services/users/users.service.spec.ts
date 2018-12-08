@@ -2,14 +2,24 @@ import { TestBed, inject } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { UsersService } from './users.service';
+import { GenericService } from '../../shared/generic.service';
+
+class GenericServiceStub {
+  get_all_data() { };
+}
 
 describe('UsersService', () => {
   let usersService: UsersService;
+  let gs: GenericService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [UsersService]
+      providers: [UsersService, {
+        provide: GenericService, useClass: GenericServiceStub
+      }]
     });
     usersService = TestBed.get(UsersService);
+    gs = TestBed.get(GenericService);
   });
 
   it('should be created', () => {
